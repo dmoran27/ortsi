@@ -6,7 +6,7 @@
 </head>
 
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-dark sidebar-mini">
 
 <div id="app">
     <div id="wrapper">
@@ -21,14 +21,8 @@
 </div>
 
 {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
-<button type="submit">Logout</button>
+<button type="submit">Salir</button>
 {!! Form::close() !!}
-
-<div class="navbar-fixed-bottom">
-    <div class="qa-banner">This project was generated with Laravel Vue QuickAdminPanel.
-        <a href="https://vue.quickadminpanel.com/register" target="_blank">Try it yourself now!</a>
-    </div>
-</div>
 
 @include('partials.javascripts')
 </body>

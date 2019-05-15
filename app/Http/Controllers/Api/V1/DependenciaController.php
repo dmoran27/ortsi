@@ -2,152 +2,76 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Dependencia;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Dependencia as DependenciaResource;
+use App\Http\Requests\Admin\StoreDependenciasRequest;
+use App\Http\Requests\Admin\UpdateDependenciasRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\Buider;
+use Illuminate\Support\Facades\Gate;
 
-class DependenciaController extends Controller
+
+
+class DependenciasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
-        $dependencias=Dependencia::all();
-        
-        //return view('modules.dependencias.index', compact('dependencias'));
-        return $dependencias;
+        return new DependenciaResource(Dependencia::with([])->get());
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        //
-         $dependencias=Dependencia::all();
-        return view('modules.dependencias.create', compact('dependencias'));
-       
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    
-
-    public function store(Request $request)
-    {
-        //
-         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255',
-            'piso' => 'required|string|max:10',
-            'edificio_id' => 'required|string|max:255',
-
-        ]);
-        
-        if ($validator->fails()) {
-            return redirect()
-                        ->route('dependencias.create')
-                        ->withErrors($validator)
-                        ->withInput();
+        if (Gate::denies('dependencia_view')) {
+            return abort(401);
         }
 
-        Dependencia::create($request->all());
-        return redirect()->route('dependencias.index');
+        $dependencia = Dependencia::with(['tipo'])->findOrFail($id);
+
+        $return new DependenciaResource($dependencia);
     }
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dependencia $dependencia)
+    public function store(StoreDependenciasRequest $request)
     {
-        //
+        if (Gate::denies('dependencia_create')) {
+            return abort(401);
+        }
 
-        $dependencias=Dependencia::findOrFail($dependencia->id);
-        return view('modules.dependencias.show', compact('dependencias'));
-
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dependencia $dependencia)
-    {
-        //
+        $dependencia = Dependencia::create($request->all());
         
-        $dependencias=Dependencia::findOrFail($dependencia->id);
-        $dependencias=Dependencia::all();
-        $enumoption = General::getEnumValues('dependencias') ;
-       
-        return view('modules.dependencias.edit', compact('dependencias'));
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dependencia  $dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function update( Request $request, Dependencia $dependencia)
-    {
-        //
-
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:255',
-            'piso' => 'required|string|max:10',
-            'edificio_id' => 'required|string|max:255',
-
-        ]);
-
-
-         if ($validator->fails()) {
-            
-           return redirect()
-                        ->route('dependencias.edit', $dependencia)
-                        ->withErrors($validator)
-                        ->withInput();
-            }
-      
-
-        Dependencia::findOrFail($dependencia->id)->update($request->all());
-        return redirect()->route('dependencias.index');
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\dependencias  $dependencias
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dependencia $dependencia)
-    {
-        //
-      $dependencias=Dependencia::findOrFail($dependencia->id)->delete();
-  
         
-        return redirect()->route('dependencias.index');
 
+        return (new DependenciaResource($dependencia))
+            ->response()
+            ->setStatusCode(201);
     }
 
+    public function update(UpdateDependenciasRequest $request, $id)
+    {
+        if (Gate::denies('dependencia_edit')) {
+            return abort(401);
+        }
+
+        $dependencia = Dependencia::findOrFail($id);
+        $dependencia->update($request->all());
+        
+        
+        
+
+        return (new DependenciaResource($dependencia))
+            ->response()
+            ->setStatusCode(202);
+    }
+
+    public function destroy($id)
+    {
+        if (Gate::denies('dependencia_delete')) {
+            return abort(401);
+        }
+
+        $dependencia = Dependencia::findOrFail($id);
+        $dependencia->delete();
+
+        return response(null, 204);
+    }
 }

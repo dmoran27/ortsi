@@ -89,17 +89,18 @@ return [
 		],
 	],
 	
-	'clientes' => [
-		'title' => 'Clientes',
+	'clients' => [
+		'title' => 'Clients',
 		'fields' => [
-			'nombre' => 'Nombre',
-			'apellido' => 'Apellido',
-			'departamento' => 'Departamento',
-			'email' => 'Correo',
-			'cedula' => 'Cedula',
-			'telefono' => 'Telefono',
-			'sexo' => 'Sexo',
-			'tipo' => 'Tipo',
+			'first-name' => 'First name',
+			'last-name' => 'Last name',
+			'company-name' => 'Company name',
+			'email' => 'Email',
+			'phone' => 'Phone',
+			'website' => 'Website',
+			'skype' => 'Skype',
+			'country' => 'Country',
+			'client-status' => 'Client status',
 		],
 	],
 	
@@ -390,6 +391,5 @@ return [
 	'qa_deselect_all' => 'Deselect all',
 	'qa_team-management' => 'Teams',
 	'qa_team-management-singular' => 'Team',
-	'quickadmin_title_mini' => 'ORT',
-	'quickadmin_title' => 'ORTSI',
+	'quickadmin_title' => 'Larancer',
 ];

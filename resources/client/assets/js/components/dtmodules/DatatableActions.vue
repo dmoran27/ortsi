@@ -3,25 +3,25 @@
         <router-link
                 v-if="$can(xprops.permission_prefix + 'view')"
                 :to="{ name: xprops.route + '.show', params: { id: row.id } }"
-                class="btn btn-primary"
+                
                 >
-            View
+            <i class="fa fa-eye"></i>
         </router-link>
 
         <router-link
                 v-if="$can(xprops.permission_prefix + 'edit')"
                 :to="{ name: xprops.route + '.edit', params: { id: row.id } }"
-                class="btn btn-warning">
-            Edit
+                class="">
+             <i class="fa fa-edit"></i>
         </router-link>
 
-        <button
+        <a
+
                 v-if="$can(xprops.permission_prefix + 'delete')"
                 @click="destroyData(row.id)"
-                type="button"
-                class="btn btn-danger">
-            Delete
-        </button>
+                class="">
+             <i class="fa fa-trash"></i>
+        </a>
    </div>
 </template>
 

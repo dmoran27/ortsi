@@ -2,83 +2,83 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Periferico;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Periferico as PerifericoResource;
+use App\Http\Requests\Admin\StorePerifericosRequest;
+use App\Http\Requests\Admin\UpdatePerifericosRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
-class PerifericoController extends Controller
+
+
+class PerifericosController extends Controller
+
+
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        
+
+        if (Gate::denies('periferico_access')) {
+            return abort(401);
+        }
+
+        return PerifericoResource::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        if (Gate::denies('periferico_view')) {
+            return abort(401);
+        }
+
+        $periferico = Periferico::with(['tipo'])->findOrFail($id);
+
+        return new PerifericoResource($periferico;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function store(StorePerifericosRequest $request)
     {
-        //
+        if (Gate::denies('periferico_create')) {
+            return abort(401);
+        }
+
+        $periferico = Periferico::create($request->all());
+        
+        
+
+        return (new PerifericoResource($periferico))
+            ->response()
+            ->setStatusCode(201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UpdatePerifericosRequest $request, $id)
     {
-        //
+        if (Gate::denies('periferico_edit')) {
+            return abort(401);
+        }
+
+        $periferico = Periferico::findOrFail($id);
+        $periferico->update($request->all());
+        
+        
+        
+
+        return (new PerifericoResource($periferico))
+            ->response()
+            ->setStatusCode(202);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('periferico_delete')) {
+            return abort(401);
+        }
+
+        $periferico = Periferico::findOrFail($id);
+        $periferico->delete();
+
+        return response(null, 204);
     }
 }

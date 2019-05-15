@@ -21,7 +21,9 @@ class UserSeed extends Seeder
                     'sexo'=> 'Femenino',
                     'area_id'=> 1,                     
                     'email'=>'dianacmoran27@gmail.com',
-                    'password'=>bcrypt('123123'),],
+                    'password'=>bcrypt('123123'),
+                    'remember_token' => str_random(10),
+                ],
 
         ];
 

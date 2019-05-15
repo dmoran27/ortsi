@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Controllers\Api\V1;
@@ -17,13 +16,8 @@ class ClientesController extends Controller
 {
     public function index()
     {
-        
+        return new ClienteResource(Cliente::with(['dependencia'])->get());
 
-        if (Gate::denies('caracteristica_access')) {
-            return abort(401);
-        }
-
-        return new Cliente::all();
     }
 
     public function show($id)
@@ -32,9 +26,9 @@ class ClientesController extends Controller
             return abort(401);
         }
 
-        $cliente = Cliente::with(['cliente_status'])->findOrFail($id);
+        $cliente = Cliente::with(['tipo'])->findOrFail($id);
 
-        return new ClienteResource($clientee);
+        return new ClienteResource($cliente);
     }
 
     public function store(StoreClientesRequest $request)
