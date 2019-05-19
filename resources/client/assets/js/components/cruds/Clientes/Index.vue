@@ -73,7 +73,7 @@ export default {
                 { title: 'Tipo', field: 'tipo', sortable: true },
                 { title: 'Correo', field: 'email', sortable: true },
                 { title: 'Telefono', field: 'telefono', sortable: true },
-                { title: 'Dependencia', field: 'dependencias', sortable: true },
+                { title: 'Dependencia', field: 'dependencia', sortable: true },
                 { title: 'Sexo', field: 'sexo', sortable: true },
                 { title: 'Acciones', tdComp: DatatableActions, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }
             ],

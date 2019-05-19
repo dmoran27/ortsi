@@ -858,7 +858,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Nombre', field: 'nombre', sortable: true }, { title: 'Apellido', field: 'apellido', sortable: true }, { title: 'Cedula', field: 'cedula', sortable: true }, { title: 'Tipo', field: 'tipo', sortable: true }, { title: 'Correo', field: 'email', sortable: true }, { title: 'Telefono', field: 'telefono', sortable: true }, { title: 'Dependencia', field: 'dependencias', sortable: true }, { title: 'Sexo', field: 'sexo', sortable: true }, { title: 'Acciones', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
+            columns: [{ title: '#', field: 'id', sortable: true, colStyle: 'width: 50px;' }, { title: 'Nombre', field: 'nombre', sortable: true }, { title: 'Apellido', field: 'apellido', sortable: true }, { title: 'Cedula', field: 'cedula', sortable: true }, { title: 'Tipo', field: 'tipo', sortable: true }, { title: 'Correo', field: 'email', sortable: true }, { title: 'Telefono', field: 'telefono', sortable: true }, { title: 'Dependencia', field: 'dependencia', sortable: true }, { title: 'Sexo', field: 'sexo', sortable: true }, { title: 'Acciones', tdComp: __WEBPACK_IMPORTED_MODULE_1__dtmodules_DatatableActions___default.a, visible: true, thClass: 'text-right', tdClass: 'text-right', colStyle: 'width: 130px;' }],
             query: { sort: 'id', order: 'desc' },
             xprops: {
                 module: 'ClientesIndex',
